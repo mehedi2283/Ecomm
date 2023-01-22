@@ -1,0 +1,30 @@
+.paymentloading {
+    
+    background-color: transparent;
+    display: grid;
+    place-items: center;
+    max-width: 100%;
+    animation: loadingRotate  800ms linear infinite;
+  }
+  
+  .paymentloading > div {
+    width: 10vmax;
+    height: 10vmax;
+    border-bottom: 5px solid rgba(0, 0, 0, 0.719);
+    animation: colorChange 400ms linear infinite alternate-reverse;
+    border-radius: 50%;
+  
+   
+  }
+  
+  @keyframes loadingRotate {
+    to {
+      transform: rotateZ(-360deg);
+    }
+  }
+
+  @keyframes colorChange {
+    to {
+        border-color: rgba(171, 0, 206, 0.89);
+    }
+}

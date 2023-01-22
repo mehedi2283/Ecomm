@@ -1,0 +1,35 @@
+.addProductloading {
+    background-color: white;
+    display: grid;
+    place-items: center;
+    width: 50%;
+    animation: loadingRotate 400ms linear infinite;
+}
+
+.addProductloadingDiv {
+    height: 185px;
+    border-bottom: 7px solid rgba(0, 0, 0, 0.719);
+
+    border-radius: 100%;
+}
+.addProductloadingDiv {
+    animation: colorChange 400ms linear infinite alternate-reverse;
+}
+@media screen and (max-width: 600px) {
+    .addProductloading {
+        height: 110px;
+
+        width: 30%;
+    }
+}
+
+@keyframes loadingRotate {
+    to {
+        transform: rotateZ(-360deg);
+    }
+}
+@keyframes colorChange {
+    to {
+        border-color: rgba(171, 0, 206, 0.89);
+    }
+}
