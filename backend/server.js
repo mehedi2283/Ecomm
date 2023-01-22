@@ -4,10 +4,10 @@ const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database");
 
-app.get("*", (req, res) => {
-    app.use(express.static(path.resolve(__dirname, "../frontend/build")));
-    res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
-  });
+// app.get("*", (req, res) => {
+//     app.use(express.static(path.resolve(__dirname, "../frontend/build")));
+//     res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+//   });
 
 //Handleing Uncaught Exceptions
 process.on("uncaughtException", (err) => {
