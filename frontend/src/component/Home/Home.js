@@ -42,7 +42,7 @@ const Home = () => {
                     {/* {products &&
                         products.map((product) => console.log(product))} */}
                     <div className="banner">
-                        <p>Welcome to SellPhone</p>
+                        <p>Welcome to <span>SellPhone</span></p>
                         <h1>FIND AMAZING PHONES BELOW</h1>
 
                         <a href="#container">

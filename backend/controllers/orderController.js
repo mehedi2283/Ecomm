@@ -1,4 +1,5 @@
 const Order = require(".././models/orderModel");
+const User = require(".././models/userModel");
 const Product = require(".././models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
@@ -88,6 +89,9 @@ exports.getAllOrders = catchAsyncErrors(async (req, res, next) => {
 // update Order Status -- Admin
 exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
     const order = await Order.findById(req.params.id);
+    const user = await User.find({_id: order.user});
+    // const userName = await User.find(users._id === order.user);
+    console.log(user[0].name);
 
     if (!order) {
         return next(new ErrorHandler("Order not found with this Id", 404));
@@ -104,10 +108,10 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
             await updateStock(o.product, o.quantity);
         });
 
-        const message = `Dear ${req.user.name} your order has been Shipped.\n\nPlease wait for Delivered mail.\n\nThank you.`;
+        const message = `Dear ${user[0].name} your order has been Shipped.\n\nPlease wait for Delivery mail.\n\nThank you.`;
 
         await sendEmail({
-            email: req.user.email,
+            email: order.orderItems[0].email,
             subject: `SellPhone order`,
             message,
         });
@@ -117,10 +121,10 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
     if (req.body.status === "Delivered") {
         order.deliveredAt = Date.now();
 
-        const message = `Dear ${req.user.name} your order has been Delivered.\n\nPlease collect your product.\n\nThank you.`;
+        const message = `Dear ${user[0].name} your order has been Delivered.\n\nPlease collect your product.\n\nThank you.`;
 
         await sendEmail({
-            email: req.user.email,
+            email: order.orderItems[0].email,
             subject: `SellPhone order`,
             message,
         });

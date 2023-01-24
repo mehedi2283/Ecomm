@@ -20,6 +20,11 @@
   
   .banner > p {
     font: 300 1.4vmax "Lucida Sans";
+    font-size: xx-large;
+  }
+  .banner > p > span {
+    color: #9900FF;
+    font-weight:900;
   }
   
   .banner > a > button {
