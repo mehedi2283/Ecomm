@@ -95,7 +95,7 @@ const NewProduct = () => {
         });
     };
 
-    console.log(images, imagesPreview);
+    // console.log(images, imagesPreview);
 
     return (
         <Fragment>

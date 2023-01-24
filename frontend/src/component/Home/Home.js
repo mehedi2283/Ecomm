@@ -37,9 +37,10 @@ const Home = () => {
                 <Loader></Loader>
             ) : (
                 <Fragment>
+                   
                      <Metadata title={``} />
-                    {products &&
-                        products.map((product) => console.log(product))}
+                    {/* {products &&
+                        products.map((product) => console.log(product))} */}
                     <div className="banner">
                         <p>Welcome to SellPhone</p>
                         <h1>FIND AMAZING PHONES BELOW</h1>
@@ -62,6 +63,7 @@ const Home = () => {
                                 />
                             ))}
                     </div>
+                   
                 </Fragment>
             )}
         </Fragment>

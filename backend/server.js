@@ -1,8 +1,13 @@
-const app = require("./app");
+// import { Server } from 'socket.io';
 
+const app = require("./app");
+const cors = require("cors");
+const socketIO = require("socket.io");
+const http = require("http");
 const dotenv = require("dotenv");
 const cloudinary = require("cloudinary");
 const connectDatabase = require("./config/database");
+
 
 // app.get("*", (req, res) => {
 //     app.use(express.static(path.resolve(__dirname, "../frontend/build")));

@@ -2,6 +2,7 @@ const Order = require(".././models/orderModel");
 const Product = require(".././models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const sendEmail = require("../utils/sendEmail");
 
 // Create new order
 exports.newOrder = catchAsyncErrors(async (req, res, next) => {
@@ -25,6 +26,14 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
         totalPrice,
         paidAt: Date.now(),
         user: req.user._id,
+    });
+    // console.log(order.orderItems[0])
+    const message = `Thank you ${req.user.name} for your order.\n\nYour order code: ${order.orderItems[0]._id}\n\nYour transaction code for this order is: ${req.body.paymentInfo.id} `;
+
+    await sendEmail({
+        email: req.user.email,
+        subject: `SellPhone order`,
+        message,
     });
     res.status(201).json({
         success: true,
@@ -94,14 +103,31 @@ exports.updateOrder = catchAsyncErrors(async (req, res, next) => {
         order.orderItems.forEach(async (o) => {
             await updateStock(o.product, o.quantity);
         });
+
+        const message = `Dear ${req.user.name} your order has been Shipped.\n\nPlease wait for Delivered mail.\n\nThank you.`;
+
+        await sendEmail({
+            email: req.user.email,
+            subject: `SellPhone order`,
+            message,
+        });
     }
     order.orderStatus = req.body.status;
 
     if (req.body.status === "Delivered") {
         order.deliveredAt = Date.now();
+
+        const message = `Dear ${req.user.name} your order has been Delivered.\n\nPlease collect your product.\n\nThank you.`;
+
+        await sendEmail({
+            email: req.user.email,
+            subject: `SellPhone order`,
+            message,
+        });
     }
 
     await order.save({ validateBeforeSave: false });
+
     res.status(200).json({
         success: true,
     });

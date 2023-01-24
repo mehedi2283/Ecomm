@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import "./Products.css";
 import { clearErrors, getProducts } from "./../../actions/productAction";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import { Rating, Typography } from "@mui/material";
 import Slider from "@material-ui/core/Slider";
@@ -49,7 +49,7 @@ const Products = ({ keyword }) => {
     }
 
     // const { keyword } = useParams();
-    console.log(keyword)
+    // console.log(keyword)
 
     const setCurrentPageNo = (e) => {
         setCurrentPage(e);
@@ -95,7 +95,7 @@ const Products = ({ keyword }) => {
 
                     <div className="products">
                         {products &&
-                            products.map((product) => (
+                            products?.map((product) => (
                                 <ProductCard
                                     key={product._id}
                                     product={product}
@@ -105,16 +105,18 @@ const Products = ({ keyword }) => {
 
                     <div className="filterBox">
                         <Typography>Price</Typography>
+                        
                         <Slider
                             size="small"
                             value={price}
                             onChangeCommitted={priceHandler}
                             valueLabelDisplay="auto"
-                            getAriaLabel={() => "Minimum distance shift"}
-                            aria-labelledby="range-slider"
+                            // getAriaLabel={() => "Minimum distance shift"}
+                            // aria-labelledby="range-slider"
                             min={0}
                             max={30000}
                         />
+                       
 
                         <Typography>Categories</Typography>
                         <ul className="categoryBox">

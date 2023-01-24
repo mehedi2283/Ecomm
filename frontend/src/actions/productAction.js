@@ -28,6 +28,9 @@ import {
     DELETE_REVIEW_SUCCESS,
     DELETE_REVIEW_FAIL,
     CLEAR_ERRORS,
+    SELLER_PRODUCT_FAIL,
+    SELLER_PRODUCT_REQUEST,
+    SELLER_PRODUCT_SUCCESS,
 } from "../constants/productConstant";
 
 // Get All Products
@@ -82,7 +85,26 @@ export const getAdminProduct = () => async (dispatch) => {
   }
 };
 
-// Create Product
+    // Get All Products For Seller
+export const getSellerProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: SELLER_PRODUCT_REQUEST });
+
+    const { data } = await axios.get(`/api/v1/seller/products/${id}`);
+
+    dispatch({
+      type: SELLER_PRODUCT_SUCCESS,
+      payload: data.productsForSeller,
+    });
+  } catch (error) {
+    dispatch({
+      type: SELLER_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Create Product -- Admin
 export const createProduct = (productData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_PRODUCT_REQUEST });
@@ -93,6 +115,32 @@ export const createProduct = (productData) => async (dispatch) => {
 
     const { data } = await axios.post(
       `/api/v1/admin/product/new`,
+      productData,
+      config
+    );
+
+    dispatch({
+      type: NEW_PRODUCT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+// Create Product -- Admin
+export const createProductBySeller = (productData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_PRODUCT_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.post(
+      `/api/v1/seller/product/new`,
       productData,
       config
     );
@@ -135,6 +183,32 @@ export const updateProduct = (id, productData) => async (dispatch) => {
     });
   }
 };
+// Update Product --seller
+export const updateSellerProduct = (id, productData) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_PRODUCT_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.put(
+      `/api/v1/seller/product/${id}`,
+      productData,
+      config
+    );
+
+    dispatch({
+      type: UPDATE_PRODUCT_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 
 
@@ -144,6 +218,24 @@ export const deleteProduct = (id) => async (dispatch) => {
     dispatch({ type: DELETE_PRODUCT_REQUEST });
 
     const { data } = await axios.delete(`/api/v1/admin/product/${id}`);
+
+    dispatch({
+      type: DELETE_PRODUCT_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_PRODUCT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+// Delete Product -- seller
+export const deleteSellerProduct = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_PRODUCT_REQUEST });
+
+    const { data } = await axios.delete(`/api/v1/seller/product/${id}`);
 
     dispatch({
       type: DELETE_PRODUCT_SUCCESS,

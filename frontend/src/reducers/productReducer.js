@@ -31,6 +31,9 @@ import {
   DELETE_REVIEW_SUCCESS,
   DELETE_REVIEW_FAIL,
   DELETE_REVIEW_RESET,
+  SELLER_PRODUCT_FAIL,
+  SELLER_PRODUCT_REQUEST,
+  SELLER_PRODUCT_SUCCESS,
   CLEAR_ERRORS,
 } from "../constants/productConstant";
 
@@ -58,6 +61,38 @@ export const productsReducer = (state = { products: [] }, action) => {
 
         case ALL_PRODUCT_FAIL:
         case ADMIN_PRODUCT_FAIL:
+            return {
+                loading: false,
+                error: action.payload,
+            };
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+
+        default:
+            return state;
+    }
+};
+
+
+export const sellerProductsReducer = (state = { productsForSeller: [] }, action) => {
+    switch (action.type) {
+        case SELLER_PRODUCT_REQUEST:
+            return {
+                loading: true,
+                productsForSeller: [],
+            };
+
+        
+        case SELLER_PRODUCT_SUCCESS:
+            return {
+                loading: false,
+                productsForSeller: action.payload,
+            };
+        case SELLER_PRODUCT_FAIL:
             return {
                 loading: false,
                 error: action.payload,
@@ -217,6 +252,39 @@ export const newReviewReducer = (state = {}, action) => {
   };
 
   export const newProductReducer = (state = { product: {} }, action) => {
+    switch (action.type) {
+      case NEW_PRODUCT_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        };
+      case NEW_PRODUCT_SUCCESS:
+        return {
+          loading: false,
+          success: action.payload.success,
+          product: action.payload.product,
+        };
+      case NEW_PRODUCT_FAIL:
+        return {
+          ...state,
+          loading: false,
+          error: action.payload,
+        };
+      case NEW_PRODUCT_RESET:
+        return {
+          ...state,
+          success: false,
+        };
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+      default:
+        return state;
+    }
+  };
+  export const newProductReducerForseller = (state = { product: {} }, action) => {
     switch (action.type) {
       case NEW_PRODUCT_REQUEST:
         return {

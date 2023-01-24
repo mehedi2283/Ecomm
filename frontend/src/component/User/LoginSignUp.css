@@ -162,7 +162,15 @@
   .shiftToRight {
     transform: translateX(100%);
   }
-  
+  .regRole{
+    justify-content: space-between;
+  }
+  .MuiFormControlLabel-root{
+    margin: 0 !important;
+  }
+  .switchColor{
+    color: #9900FF;
+  }
   @media screen and (max-width: 600px) {
     .LoginSignUpContainer {
       background-color: white;

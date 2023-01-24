@@ -60,7 +60,7 @@ const Dashboard = () => {
             {
                 backgroundColor: ["#00A6B4", "#6800B4"],
                 hoverBackgroundColor: ["#4B5000", "#35014F"],
-                data: [outOfStock, products.length - outOfStock],
+                data: [outOfStock, products?.length - outOfStock],
             },
         ],
     };
@@ -82,7 +82,7 @@ const Dashboard = () => {
                     <div className="dashboardSummaryBox2">
                         <Link to="/admin/products">
                             <p>Product</p>
-                            <p>{products && products.length}</p>
+                            <p>{products && products?.length}</p>
                         </Link>
                         <Link to="/admin/orders">
                             <p>Orders</p>

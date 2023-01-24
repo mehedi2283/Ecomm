@@ -13,7 +13,7 @@ exports.register = catchAsyncErrors(async (req, res, next) => {
         width: 150,
         crop: "scale",
     });
-    const { name, email, password } = req.body;
+    const { name, email, password,role } = req.body;
 
     const user = await User.create({
         name,
@@ -23,6 +23,7 @@ exports.register = catchAsyncErrors(async (req, res, next) => {
             public_id: myCloud.public_id,
             url: myCloud.secure_url,
         },
+        role,
     });
 
     sendToken(user, 201, res);
@@ -88,7 +89,7 @@ exports.forgetPassword = catchAsyncErrors(async (req, res, next) => {
     try {
         await sendEmail({
             email: user.email,
-            subject: `Ecomm Password Recovery`,
+            subject: `SellPhone Password Recovery`,
             message,
         });
         res.status(200).json({

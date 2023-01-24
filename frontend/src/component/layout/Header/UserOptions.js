@@ -13,6 +13,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 
 const UserOptions = ({ user }) => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -34,7 +35,7 @@ const UserOptions = ({ user }) => {
       name: `Cart(${cartItems.length})`,
       func: cart,
     },
-    { icon: <ExitToAppIcon />, name: "Logout", func: logoutUser },
+    { icon: <ExitToAppIcon  style={{ color: "red" }} />, name: "Logout", func: logoutUser },
   ];
 
   if (user.role === "admin") {
@@ -42,11 +43,28 @@ const UserOptions = ({ user }) => {
       icon: <DashboardIcon/>,
       name: "Dashboard",
       func: dashboard,
+    },{
+      icon: <SupportAgentIcon/>,
+      name: "Support",
+      func: support,
+    });
+  }
+  if (user.role === "seller") {
+    options.unshift({
+      icon: <DashboardIcon/>,
+      name: "Dashboard",
+      func: sellerDashboard,
     });
   }
 
   function dashboard() {
     navigate("/admin/dashboard");
+  }
+  function support() {
+    navigate("/admin/support");
+  }
+  function sellerDashboard() {
+    navigate(`/seller/products/${user._id}`);
   }
 
   function orders() {

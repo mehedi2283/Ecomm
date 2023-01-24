@@ -196,6 +196,8 @@
   }
   .reviewCard > img {
     width: 5vmax;
+    height: 5vmax;
+    object-fit: cover;
   }
   .reviewCard > p {
     color: rgba(0, 0, 0, 0.836);

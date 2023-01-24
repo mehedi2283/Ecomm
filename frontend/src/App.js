@@ -20,6 +20,7 @@ import { loadUser } from "./actions/userAction";
 import UserOptions from "./component/layout/Header/UserOptions.js";
 import { useSelector } from "react-redux";
 import ProtectedRoute from "./component/Routes/ProtectedRoute";
+import ProtectedRouteForSeller from "./component/Routes/ProtectedRouteForSeller.js";
 import UpdateProfile from "./component/User/UpdateProfile.js";
 import UpdatePassword from "./component/User/UpdatePassword.js";
 import ForgotPassword from "./component/User/ForgotPassword.js";
@@ -36,8 +37,11 @@ import MyOrders from "./component/Order/MyOrders.js";
 import OrderDetails from "./component/Order/OrderDetails.js";
 import Dashboard from "./component/Dashboard/Dasboard.js";
 import Productlist from "./component/Dashboard/Productlist.js";
+import ProductlistforSeller from "./component/Dashboard/ProductlistforSeller.js";
+import NewProductForSeller from "./component/Dashboard/NewProductForSeller.js";
 import NewProduct from "./component/Dashboard/NewProduct.js";
 import UpdateProduct from "./component/Dashboard/UpdateProduct.js";
+import UpdateSellerProduct from "./component/Dashboard/UpdateSellerProduct.js";
 import OrderList from "./component/Dashboard/OrderList.js";
 import ProcessOrder from "./component/Dashboard/ProcessOrder.js";
 import UserList from "./component/Dashboard/UserList.js";
@@ -46,6 +50,8 @@ import ProductReviews from "./component/Dashboard/ProductReviews.js";
 import Contact from "./component/layout/Contact/Contact.js";
 import About from "./component/layout/About/About.js";
 import NotFound from "./component/layout/Not Found/NotFound.js";
+import SupportEngine from "./component/Dashboard/supportEngine";
+import SupportAdmin from './component/Dashboard/SupportAdmin/index';
 
 function App() {
     const [keyword, setKeyword] = useState("");
@@ -70,11 +76,12 @@ function App() {
         getStripeApiKey();
     }, []);
 
-    window.addEventListener("contextmenu", (e) =>e.preventDefault());
+    window.addEventListener("contextmenu", (e) => e.preventDefault());
 
     return (
         <Router>
             <Header></Header>
+            <SupportEngine style={{zIndex:"40"}}></SupportEngine>
             {isAuthenticated && <UserOptions user={user}></UserOptions>}
             <Routes>
                 <Route path="/" element={<Home></Home>} />
@@ -87,11 +94,19 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+                <Route
+                    path="/admin/support"
+                    element={
+                        <ProtectedRoute isAdmin={true}>
+                            <SupportAdmin></SupportAdmin>
+                        </ProtectedRoute>
+                    }
+                />
 
                 <Route
                     path="/admin/dashboard"
                     element={
-                        <ProtectedRoute isAdmin={true}>
+                        <ProtectedRoute isAdmin={true} isSeller={true}>
                             <Dashboard></Dashboard>
                         </ProtectedRoute>
                     }
@@ -104,6 +119,7 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+
                 <Route
                     path="/admin/products"
                     element={
@@ -112,6 +128,7 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+
                 <Route
                     path="/admin/product/:id"
                     element={
@@ -120,6 +137,7 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
+
                 <Route
                     path="/admin/orders"
                     element={
@@ -162,6 +180,31 @@ function App() {
                 />
 
                 <Route
+                    path="/seller/newProduct"
+                    element={
+                        <ProtectedRouteForSeller isAdmin={true}>
+                            <NewProductForSeller></NewProductForSeller>
+                        </ProtectedRouteForSeller>
+                    }
+                />
+                <Route
+                    path="/seller/products/:id"
+                    element={
+                        <ProtectedRouteForSeller isAdmin={true}>
+                            <ProductlistforSeller></ProductlistforSeller>
+                        </ProtectedRouteForSeller>
+                    }
+                />
+                <Route
+                    path="/seller/product/:id"
+                    element={
+                        <ProtectedRouteForSeller isAdmin={true}>
+                            <UpdateSellerProduct></UpdateSellerProduct>
+                        </ProtectedRouteForSeller>
+                    }
+                />
+
+                <Route
                     path="/me/update"
                     element={
                         <ProtectedRoute>
@@ -169,7 +212,7 @@ function App() {
                         </ProtectedRoute>
                     }
                 />
-                
+
                 <Route
                     path="/password/update"
                     element={

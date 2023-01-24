@@ -4,12 +4,12 @@ import { Navigate, useLocation } from "react-router-dom";
 import Loader from "../layout/Loader/Loader";
 import { redirect } from "react-router-dom";
 
-const ProtectedRoute = ({ children, isAdmin, isSeller }) => {
+const ProtectedRoute = ({ children, isAdmin }) => {
     const { loading, isAuthenticated, user } = useSelector(
         (state) => state.user
     );
 
-    console.log(user?.role);
+    // console.log(user?.role);
 
     const location = useLocation();
 
@@ -24,7 +24,7 @@ const ProtectedRoute = ({ children, isAdmin, isSeller }) => {
             </Navigate>
         );
     }
-    if (loading === false && isAdmin === true && user?.role !== "admin") {
+    if (loading === false && isAdmin === true && user.role !== "admin") {
         return (
             <Navigate to="/login" state={{ from: location }} replace>
                 {redirect("/login")}

@@ -105,7 +105,7 @@ const Payment = () => {
                 alert.error(result.error.message);
             } else {
                 if (result.paymentIntent.status === "succeeded") {
-                    console.log(loadPayment);
+                    // console.log(loadPayment);
 
                     order.paymentInfo = {
                         id: result.paymentIntent.id,
@@ -125,9 +125,9 @@ const Payment = () => {
         } catch (error) {
             setLoadPayment(false);
             setButtonLoading(false);
-            console.log(error);
+            // console.log(error);
             payBtn.current.disabled = false;
-            console.log(loadPayment);
+            // console.log(loadPayment);
             alert.error(error.response.data.message);
         }
     };

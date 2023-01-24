@@ -30,7 +30,7 @@ const ProductDetails = () => {
     const { product, loading, error } = useSelector(
         (state) => state.productDetails
     );
-    console.log(product);
+    // console.log(product);
 
     const { success, error: reviewError } = useSelector(
         (state) => state.newReview
@@ -63,7 +63,7 @@ const ProductDetails = () => {
     };
 
     const addToCartHandler = () => {
-        dispatch(addItemsToCart(id, quantity));
+        dispatch(addItemsToCart(id, quantity,user.email));
         alert.success("Item Added To Cart");
     };
 
