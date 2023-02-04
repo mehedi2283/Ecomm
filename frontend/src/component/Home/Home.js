@@ -30,6 +30,7 @@ const Home = () => {
     //     price: "৳200000",
     //     _id: "wow",
     // };
+   
 
     return (
         <Fragment>

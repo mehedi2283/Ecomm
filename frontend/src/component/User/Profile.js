@@ -18,6 +18,7 @@ const Profile = () => {
         }
     }, [navigate, isAuthenticated,user]);
     // console.log("heeeeeelllloooooooooo",user)
+    // console.log('hello',process.env.REACT_APP_CE_PROJECT_ID)
     return (
         <Fragment>
             {loading ? (

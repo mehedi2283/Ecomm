@@ -77,7 +77,7 @@ function App() {
     }, []);
 
     window.addEventListener("contextmenu", (e) => e.preventDefault());
-
+   
     return (
         <Router>
             <Header></Header>
