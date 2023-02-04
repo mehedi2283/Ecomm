@@ -29,7 +29,7 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
         user: req.user._id,
     });
     // console.log(order.orderItems[0])
-    const message = `Thank you ${req.user.name} for your order.\n\nYour order code: ${order.orderItems[0]._id}\n\nYour transaction code for this order is: ${req.body.paymentInfo.id} `;
+    const message = `Thank you ${req.user.name} for your order.\n\nYour order id: ${order.orderItems[0]._id}\n\nYour transaction code for this order is: ${req.body.paymentInfo.id} `;
 
     await sendEmail({
         email: req.user.email,

@@ -25,6 +25,15 @@ exports.register = catchAsyncErrors(async (req, res, next) => {
         },
         role,
     });
+    
+
+    const message = `${user.name} welcome to SellPhone \n\n Registration for SellPhone is complete. \n\n Thank you.`;
+
+        await sendEmail({
+            email: user.email,
+            subject: `SellPhone registration`,
+            message,
+        });
 
     sendToken(user, 201, res);
 });
